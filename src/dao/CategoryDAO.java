@@ -6,6 +6,9 @@ import model.Category;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CategoryDAO {
     public Category getCategoryById(int categoryId) throws Exception {
@@ -27,5 +30,24 @@ public class CategoryDAO {
             ;
         }
         return category;
+    }
+
+    public List<Category> getAllCategories() throws SQLException {
+        String sql = "SELECT * FROM Categories";
+        List<Category> categories = new ArrayList<>();
+
+        try {
+            Connection conn = DBConnection.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                categories.add(new Category(rs.getInt("category_id"), rs.getString("name")));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return categories;
     }
 }

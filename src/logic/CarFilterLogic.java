@@ -3,10 +3,13 @@ package logic;
 import dao.*;
 import model.*;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CarFilterLogic {
+
+    DecimalFormat df = new DecimalFormat("#,###");
 
     private final CarDAO carDAO = new CarDAO();
     private final ModelDAO modelDAO = new ModelDAO();
@@ -35,8 +38,8 @@ public class CarFilterLogic {
                     (brand == null || b.getBrandName().equals(brand)) &&
                             (category == null || c.getCategoryName().equals(category)) &&
                             (fuel == null || f.getFuelTypeName().equals(fuel)) &&
-                            (engineCapacity == null || model.getEngineCapacity().equals(engineCapacity)) &&
-                            (year == null || car.getYear() == year) &&
+                            (engineCapacity == null || model.getEngineCapacity() <= engineCapacity) &&
+                            (year == null || car.getYear() >= year) &&
                             (mileage == null || car.getMileage() <= mileage) &&
                             (price == null || car.getPrice() <= price) &&
                             (city == null || loc.getCityName().equals(city));
@@ -69,7 +72,7 @@ public class CarFilterLogic {
                     f.getFuelTypeName(),
                     car.getYear(),
                     model.getEngineCapacity(),
-                    car.getPrice(),
+                    df.format(car.getPrice()),
                     loc.getCityName()
             });
         }
