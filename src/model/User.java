@@ -1,7 +1,8 @@
 package model;
 
 public class User {
-    private int userId, phoneNumber, locationId;
+    private int userId, locationId;
+    private long phoneNumber;
     private String userName, email, password;
 
     public int getUserId() {
@@ -12,11 +13,11 @@ public class User {
         this.userId = userId;
     }
 
-    public int getPhoneNumber() {
+    public long getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(long phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
@@ -52,7 +53,7 @@ public class User {
         this.password = password;
     }
 
-    public User(int userId, String userName, String email, String password, int phoneNumber, int locationId) {
+    public User(int userId, String userName, String email, String password, long phoneNumber, int locationId) {
         this.userId = userId;
         this.userName = userName;
         this.email = email;

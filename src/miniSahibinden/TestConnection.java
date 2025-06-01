@@ -1,24 +1,43 @@
 package miniSahibinden;
 
-import java.sql.*;
+import dao.*;
+import model.*;
+
+import java.util.List;
 
 public class TestConnection {
     public static void main(String[] args) {
-        String query = "SELECT * FROM Cars LIMIT 5";
+        try {
+            CarDAO carDAO = new CarDAO();
+            ModelDAO modelDAO = new ModelDAO();
+            BrandDAO brandDAO = new BrandDAO();
+            CategoryDAO categoryDAO = new CategoryDAO();
+            FuelTypeDAO fuelTypeDAO = new FuelTypeDAO();
+            UserDAO userDAO = new UserDAO();
+            LocationDAO locationDAO = new LocationDAO();
 
-        try (Connection conn = DBConnection.getConnection();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(query)) {
+            List<Car> cars = carDAO.getCarsByFilter(2015, null, null);
 
-            while (rs.next()) {
-                int carId = rs.getInt("car_id");
-                double price = rs.getDouble("price");
-                int year = rs.getInt("year");
-                System.out.println("Car ID: " + carId + ", Price: " + price + ", Year: " + year);
+            for (Car car : cars) {
+                Model model = modelDAO.getModelById(car.getModelId());
+                Brand brand = brandDAO.getBrandById(model.getBrandId());
+                FuelType fuelType = fuelTypeDAO.getFuelTypeById(model.getFuelTypeId());
+                Category category = categoryDAO.getCategoryById(model.getCategoryId());
+                User user = userDAO.getUserById(car.getUserId());
+                Location location = locationDAO.getLocationById(user.getLocationId());
+
+                System.out.println("Car ID: " + car.getCarId() +
+                        ", Brand: " + brand.getBrandName() +
+                        ", Model: " + model.getModelName() +
+                        ", Category: " + category.getCategoryName() +
+                        ", Fuel: " + fuelType.getFuelTypeName() +
+                        ", City: " + location.getCityName() +
+                        ", Price: " + car.getPrice() +
+                        ", Year: " + car.getYear());
             }
 
-        } catch (SQLException e) {
-            System.out.println("❌ Query failed:");
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
