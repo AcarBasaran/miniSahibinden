@@ -20,12 +20,12 @@ public class Main {
             List<Car> filteredCars = filterLogic.filterCars(
                     "BMW",     // brand
                     null,      // category
-                    null,      // fuel
+                    "Diesel",      // fuel
                     null,      // engineCapacity
                     null,      // year
                     null,      // mileage
                     null,      // price
-                    null       // city
+                    "İstanbul"       // city
             );
 
             ModelDAO modelDAO = new ModelDAO();

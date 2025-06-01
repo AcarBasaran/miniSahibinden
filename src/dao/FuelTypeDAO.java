@@ -13,17 +13,18 @@ public class FuelTypeDAO {
         FuelType fuelType = null;
         try {
             Connection conn = DBConnection.getConnection();
-        PreparedStatement stmt = conn.prepareStatement(sql);
+            PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setInt(1, fuelTypeId);
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                fuelType= new FuelType(rs.getInt("fuel_type_id"), rs.getString("fuel_name"));
+                fuelType = new FuelType(rs.getInt("fuel_type_id"), rs.getString("fuel_name"));
             }
 
 
         } catch (Exception e) {
-            e.printStackTrace();;
+            e.printStackTrace();
+            ;
         }
         return fuelType;
     }

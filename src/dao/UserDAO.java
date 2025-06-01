@@ -13,12 +13,12 @@ public class UserDAO {
         User user = null;
         try {
             Connection conn = DBConnection.getConnection();
-         PreparedStatement stmt = conn.prepareStatement(sql);
+            PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setInt(1, userId);
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                user= new User(rs.getInt("user_id"), rs.getString("name"), rs.getString("email"), rs.getString("password"), rs.getLong("phone"), rs.getInt("location_id"));
+                user = new User(rs.getInt("user_id"), rs.getString("name"), rs.getString("email"), rs.getString("password"), rs.getLong("phone"), rs.getInt("location_id"));
             }
 
 

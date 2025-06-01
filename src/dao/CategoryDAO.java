@@ -12,18 +12,19 @@ public class CategoryDAO {
         String sql = "SELECT * FROM Categories WHERE category_id=?";
         Category category = null;
         try {
-                Connection conn = DBConnection.getConnection();
-                PreparedStatement stmt = conn.prepareStatement(sql);
+            Connection conn = DBConnection.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setInt(1, categoryId);
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                category =  new Category(rs.getInt("category_id"), rs.getString("name"));
+                category = new Category(rs.getInt("category_id"), rs.getString("name"));
             }
 
 
         } catch (Exception e) {
-            e.printStackTrace();;
+            e.printStackTrace();
+            ;
         }
         return category;
     }

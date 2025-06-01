@@ -12,8 +12,8 @@ public class ModelDAO {
         String sql = "SELECT * FROM Models WHERE model_id = ?";
 
         try {
-                Connection conn = DBConnection.getConnection();
-                PreparedStatement stmt = conn.prepareStatement(sql);
+            Connection conn = DBConnection.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setInt(1, modelId);
             ResultSet rs = stmt.executeQuery();
 
@@ -21,8 +21,7 @@ public class ModelDAO {
                 return new Model(rs.getInt("model_id"), rs.getInt("brand_id"), rs.getInt("category_id"), rs.getString("model_name"), rs.getInt("fuel_type_id"), rs.getDouble("engine_capacity"));
             }
             return null;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
