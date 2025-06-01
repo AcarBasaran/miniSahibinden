@@ -3,24 +3,26 @@ package dao;
 import miniSahibinden.DBConnection;
 import model.Brand;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class BrandDAO {
     public Brand getBrandById(int brandId) throws Exception {
-        Connection conn = DBConnection.getConnection();
-        PreparedStatement stmt = conn.prepareStatement(
-                "SELECT * FROM Brands WHERE brand_id = ?"
-        );
-        stmt.setInt(1, brandId);
-        ResultSet rs = stmt.executeQuery();
+        String sql = "SELECT * FROM Brands WHERE brand_id = ?";
 
-        if (rs.next()) {
-            return new Brand(
-                    rs.getInt("brand_id"),
-                    rs.getString("brand_name")
-            );
+        try (
+                Connection conn = DBConnection.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)
+        ) {
+            stmt.setInt(1, brandId);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return new Brand(rs.getInt("brand_id"), rs.getString("brand_name"));
+            }
+
+            return null;
         }
-
-        return null;
     }
 }

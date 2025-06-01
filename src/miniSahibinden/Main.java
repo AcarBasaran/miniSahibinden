@@ -1,14 +1,33 @@
 package miniSahibinden;
 
+import logic.CarFilterLogic;
+import model.Car;
+import model.Model;
+import model.Brand;
+import model.FuelType;
+import model.Category;
+import model.User;
+import model.Location;
 import dao.*;
-import model.*;
 
 import java.util.List;
 
-public class TestConnection {
+public class Main {
     public static void main(String[] args) {
         try {
-            CarDAO carDAO = new CarDAO();
+            CarFilterLogic filterLogic = new CarFilterLogic();
+
+            List<Car> filteredCars = filterLogic.filterCars(
+                    "BMW",     // brand
+                    null,      // category
+                    null,      // fuel
+                    null,      // engineCapacity
+                    null,      // year
+                    null,      // mileage
+                    null,      // price
+                    null       // city
+            );
+
             ModelDAO modelDAO = new ModelDAO();
             BrandDAO brandDAO = new BrandDAO();
             CategoryDAO categoryDAO = new CategoryDAO();
@@ -16,13 +35,11 @@ public class TestConnection {
             UserDAO userDAO = new UserDAO();
             LocationDAO locationDAO = new LocationDAO();
 
-            List<Car> cars = carDAO.getCarsByFilter(2015, null, null);
-
-            for (Car car : cars) {
+            for (Car car : filteredCars) {
                 Model model = modelDAO.getModelById(car.getModelId());
                 Brand brand = brandDAO.getBrandById(model.getBrandId());
-                FuelType fuelType = fuelTypeDAO.getFuelTypeById(model.getFuelTypeId());
                 Category category = categoryDAO.getCategoryById(model.getCategoryId());
+                FuelType fuelType = fuelTypeDAO.getFuelTypeById(model.getFuelTypeId());
                 User user = userDAO.getUserById(car.getUserId());
                 Location location = locationDAO.getLocationById(user.getLocationId());
 
@@ -31,11 +48,11 @@ public class TestConnection {
                         ", Model: " + model.getModelName() +
                         ", Category: " + category.getCategoryName() +
                         ", Fuel: " + fuelType.getFuelTypeName() +
-                        ", City: " + location.getCityName() +
+                        ", Engine: " + model.getEngineCapacity() +
                         ", Price: " + car.getPrice() +
-                        ", Year: " + car.getYear());
+                        ", Year: " + car.getYear() +
+                        ", City: " + location.getCityName());
             }
-
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -3,24 +3,26 @@ package dao;
 import miniSahibinden.DBConnection;
 import model.Location;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class LocationDAO {
     public Location getLocationById(int locationId) throws Exception {
-        Connection conn = DBConnection.getConnection();
-        PreparedStatement stmt = conn.prepareStatement(
-                "SELECT * FROM Locations WHERE location_id = ?"
-        );
-        stmt.setInt(1, locationId);
-        ResultSet rs = stmt.executeQuery();
+        String sql = "SELECT * FROM Locations WHERE location_id = ?";
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-        if (rs.next()) {
-            return new Location(
-                    rs.getInt("location_id"),
-                    rs.getString("city")
-            );
+            stmt.setInt(1, locationId);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return new Location(
+                        rs.getInt("location_id"),
+                        rs.getString("city")
+                );
+            }
+
+            return null;
         }
-
-        return null;
     }
 }

@@ -11,19 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CarDAO {
-    public List<Car> getCarsByFilter(Integer year, Integer mileage,
-                                     Double price) throws SQLException {
-
+    public List<Car> getAllCars() throws SQLException {
         Connection conn = DBConnection.getConnection();
         Statement stmt = conn.createStatement();
-
-        StringBuilder sql = new StringBuilder("SELECT * FROM Cars WHERE 1=1 ");
-
-        if (year != null) sql.append("AND year = ").append(year).append(" ");
-        if (mileage != null) sql.append("AND mileage <= ").append(mileage).append(" ");
-        if (price != null) sql.append("AND price <= ").append(price).append(" ");
-
-        ResultSet rs = stmt.executeQuery(sql.toString());
+        ResultSet rs = stmt.executeQuery("SELECT * FROM Cars");
 
         List<Car> cars = new ArrayList<>();
         while (rs.next()) {
@@ -37,7 +28,7 @@ public class CarDAO {
                     rs.getString("date_posted")
             ));
         }
-
         return cars;
     }
 }
+

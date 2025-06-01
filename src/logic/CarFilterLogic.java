@@ -1,0 +1,49 @@
+package logic;
+
+import dao.*;
+import model.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class CarFilterLogic {
+
+    private final CarDAO carDAO = new CarDAO();
+    private final ModelDAO modelDAO = new ModelDAO();
+    private final BrandDAO brandDAO = new BrandDAO();
+    private final CategoryDAO categoryDAO = new CategoryDAO();
+    private final FuelTypeDAO fuelTypeDAO = new FuelTypeDAO();
+    private final UserDAO userDAO = new UserDAO();
+    private final LocationDAO locationDAO = new LocationDAO();
+
+    public List<Car> filterCars(String brand, String category, String fuel,
+                                Double engineCapacity, Integer year, Integer mileage,
+                                Double price, String city) throws Exception {
+
+        List<Car> allCars = carDAO.getAllCars();
+        List<Car> result = new ArrayList<>();
+
+        for (Car car : allCars) {
+            Model model = modelDAO.getModelById(car.getModelId());
+            Brand b = brandDAO.getBrandById(model.getBrandId());
+            Category c = categoryDAO.getCategoryById(model.getCategoryId());
+            FuelType f = fuelTypeDAO.getFuelTypeById(model.getFuelTypeId());
+            User user = userDAO.getUserById(car.getUserId());
+            Location loc = locationDAO.getLocationById(user.getLocationId());
+
+            boolean match =
+                    (brand == null || b.getBrandName().equals(brand)) &&
+                            (category == null || c.getCategoryName().equals(category)) &&
+                            (fuel == null || f.getFuelTypeName().equals(fuel)) &&
+                            (engineCapacity == null || model.getEngineCapacity().equals(engineCapacity)) &&
+                            (year == null || car.getYear() == year) &&
+                            (mileage == null || car.getMileage() <= mileage) &&
+                            (price == null || car.getPrice() <= price) &&
+                            (city == null || loc.getCityName().equals(city));
+
+            if (match) result.add(car);
+        }
+
+        return result;
+    }
+}
