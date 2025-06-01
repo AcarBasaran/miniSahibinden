@@ -1,11 +1,8 @@
 package ui;
 
-import dao.BrandDAO;
-import dao.LocationDAO;
+import dao.*;
 import logic.CarFilterLogic;
-import model.Brand;
-import model.Car;
-import model.Location;
+import model.*;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -21,6 +18,13 @@ public class MainFrame extends JFrame {
 
     private JTable resultTable;
     private DefaultTableModel tableModel;
+
+    private final ModelDAO modelDAO = new ModelDAO();
+    private final BrandDAO brandDAO = new BrandDAO();
+    private final CategoryDAO categoryDAO = new CategoryDAO();
+    private final FuelTypeDAO fuelTypeDAO = new FuelTypeDAO();
+    private final UserDAO userDAO = new UserDAO();
+    private final LocationDAO locationDAO = new LocationDAO();
 
     public MainFrame() {
         setTitle("MiniSahibinden");
@@ -76,8 +80,7 @@ public class MainFrame extends JFrame {
 
     private void loadBrands() {
         try {
-            BrandDAO dao = new BrandDAO();
-            List<Brand> brands = dao.getAllBrands();
+            List<Brand> brands = brandDAO.getAllBrands();
             brandBox.addItem("Any");
             for (Brand b : brands) brandBox.addItem(b.getBrandName());
         } catch (Exception e) {
@@ -87,8 +90,7 @@ public class MainFrame extends JFrame {
 
     private void loadCities() {
         try {
-            LocationDAO dao = new LocationDAO();
-            List<Location> cities = dao.getAllLocations();
+            List<Location> cities = locationDAO.getAllLocations();
             cityBox.addItem("Any");
             for (Location loc : cities) cityBox.addItem(loc.getCityName());
         } catch (Exception e) {
@@ -108,14 +110,11 @@ public class MainFrame extends JFrame {
             Integer mileage = mileageField.getText().isEmpty() ? null : Integer.parseInt(mileageField.getText());
             Double price = priceField.getText().isEmpty() ? null : Double.parseDouble(priceField.getText());
 
-            List<Car> results = logic.filterCars(brand, null, fuel, null, year, mileage, price, city);
+            List<Object[]> rows = logic.getFilteredTableRows(brand, null, fuel, null, year, mileage, price, city);
 
             tableModel.setRowCount(0);
-            for (Car c : results) {
-                tableModel.addRow(new Object[]{
-                        c.getCarId(), c.getModelId(), "(load model name)", "(load category)",
-                        "(load fuel)", c.getYear(), "(load engine)", c.getPrice(), "(load city)"
-                });
+            for (Object[] row : rows) {
+                tableModel.addRow(row);
             }
 
         } catch (Exception e) {
