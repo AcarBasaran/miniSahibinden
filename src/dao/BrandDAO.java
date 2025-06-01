@@ -10,19 +10,21 @@ import java.sql.ResultSet;
 public class BrandDAO {
     public Brand getBrandById(int brandId) throws Exception {
         String sql = "SELECT * FROM Brands WHERE brand_id = ?";
-
-        try (
+        Brand brand = null;
+        try {
                 Connection conn = DBConnection.getConnection();
-                PreparedStatement stmt = conn.prepareStatement(sql)
-        ) {
+                PreparedStatement stmt = conn.prepareStatement(sql);
+
             stmt.setInt(1, brandId);
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                return new Brand(rs.getInt("brand_id"), rs.getString("brand_name"));
+                brand= new Brand(rs.getInt("brand_id"), rs.getString("brand_name"));
             }
 
-            return null;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        return brand;
     }
 }

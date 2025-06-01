@@ -10,7 +10,10 @@ import java.sql.ResultSet;
 public class LocationDAO {
     public Location getLocationById(int locationId) throws Exception {
         String sql = "SELECT * FROM Locations WHERE location_id = ?";
-        try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+        Location location = null;
+        try {
+            Connection conn = DBConnection.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql);
 
             stmt.setInt(1, locationId);
             ResultSet rs = stmt.executeQuery();
@@ -23,6 +26,8 @@ public class LocationDAO {
             }
 
             return null;
-        }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } return location;
     }
 }
