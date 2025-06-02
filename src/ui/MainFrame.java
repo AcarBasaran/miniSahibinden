@@ -13,7 +13,7 @@ import java.text.DecimalFormat;
 import java.util.List;
 
 public class MainFrame extends JFrame {
-
+    private final int userId;
     private JComboBox<String> brandBox;
     private JComboBox<String> cityBox;
     private JComboBox<String> fuelBox;
@@ -30,7 +30,8 @@ public class MainFrame extends JFrame {
     private final UserDAO userDAO = new UserDAO();
     private final LocationDAO locationDAO = new LocationDAO();
 
-    public MainFrame() {
+    public MainFrame(int userId) {
+        this.userId = userId;
         setTitle("MiniSahibinden");
         setSize(1000, 600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
