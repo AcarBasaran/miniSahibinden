@@ -18,6 +18,8 @@ public class CarFilterLogic {
     private final FuelTypeDAO fuelTypeDAO = new FuelTypeDAO();
     private final UserDAO userDAO = new UserDAO();
     private final LocationDAO locationDAO = new LocationDAO();
+    private final FavoriteDAO favoriteDAO = new FavoriteDAO();
+
 
     public List<Car> filterCars(String brand, String category, String fuel,
                                 Double engineCapacity, Integer year, Integer mileage,
@@ -77,6 +79,33 @@ public class CarFilterLogic {
             });
         }
 
+        return rows;
+    }
+
+    public List<Object[]> getFavoriteTableRows(int userId) throws Exception {
+        List<Car> cars = favoriteDAO.getFavoriteCarsByUserId(userId);
+        List<Object[]> rows = new ArrayList<>();
+
+        for(Car car : cars) {
+            Model model = modelDAO.getModelById(car.getModelId());
+            Brand b = brandDAO.getBrandById(model.getBrandId());
+            Category c = categoryDAO.getCategoryById(model.getCategoryId());
+            FuelType f = fuelTypeDAO.getFuelTypeById(model.getFuelTypeId());
+            User user = userDAO.getUserById(car.getUserId());
+            Location loc = locationDAO.getLocationById(user.getLocationId());
+
+            rows.add(new Object[]{
+                    car.getCarId(),
+                    b.getBrandName(),
+                    model.getModelName(),
+                    c.getCategoryName(),
+                    f.getFuelTypeName(),
+                    car.getYear(),
+                    model.getEngineCapacity(),
+                    df.format(car.getPrice()),
+                    loc.getCityName()
+            });
+        }
         return rows;
     }
 

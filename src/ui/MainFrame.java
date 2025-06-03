@@ -30,7 +30,7 @@ public class MainFrame extends JFrame {
     private final UserDAO userDAO = new UserDAO();
     private final LocationDAO locationDAO = new LocationDAO();
 
-    public MainFrame(int userId) {
+public MainFrame(int userId) {
         this.userId = userId;
         setTitle("MiniSahibinden");
         setSize(1000, 600);
@@ -59,6 +59,9 @@ public class MainFrame extends JFrame {
         JButton searchBtn = new JButton("Search");
         searchBtn.addActionListener(e -> search());
 
+        JButton favoriteBtn = new JButton("Favorites");
+        favoriteBtn.addActionListener(e -> openFavorites());
+
         filterPanel.add(new JLabel("Brand:"));
         filterPanel.add(brandBox);
         filterPanel.add(new JLabel("Fuel Type:"));
@@ -76,12 +79,24 @@ public class MainFrame extends JFrame {
         filterPanel.add(new JLabel("Engine Size:"));
         filterPanel.add(engineSizeField);
 
-        add(filterPanel, BorderLayout.NORTH);
-        add(searchBtn, BorderLayout.CENTER);
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 1, 1));
+        buttonPanel.add(searchBtn);
+        buttonPanel.add(favoriteBtn);
+
+        JPanel northPanel = new JPanel(new BorderLayout());
+        northPanel.add(filterPanel, BorderLayout.CENTER);
+        northPanel.add(buttonPanel, BorderLayout.SOUTH);
+
+        add(northPanel, BorderLayout.NORTH);
+
 
         loadBrands();
         loadCities();
         loadCategories();
+    }
+
+    private void openFavorites() {
+        new FavoritesFrame(userId);
     }
 
     private void initResultTable() {
