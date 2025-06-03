@@ -37,4 +37,22 @@ public class FavoriteDAO {
         }
         return favoriteCars;
     }
+
+    public void addFavorite(int user_id, int car_id) {
+        String sql = """
+                INSERT INTO Favorites VALUES (?,?)
+                """;
+        try {
+            Connection conn = DBConnection.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql);
+
+            stmt.setInt(1, user_id);
+            stmt.setInt(2, car_id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
 }

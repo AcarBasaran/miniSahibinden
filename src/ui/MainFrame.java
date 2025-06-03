@@ -105,6 +105,17 @@ public class MainFrame extends JFrame {
         tableModel = new DefaultTableModel(columns, 0);
         resultTable = new JTable(tableModel);
         add(new JScrollPane(resultTable), BorderLayout.SOUTH);
+
+        resultTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                if (evt.getClickCount() == 2 && resultTable.getSelectedRow() != -1) {
+                    int row = resultTable.getSelectedRow();
+                    int carId = (int) tableModel.getValueAt(row, 0);
+                    new CarDetailFrame(userId, carId);
+                }
+            }
+        });
+
     }
 
     private void loadBrands() {
