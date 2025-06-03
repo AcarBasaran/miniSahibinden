@@ -12,7 +12,12 @@ import java.util.List;
 
 public class FavoriteDAO {
     public List<Car> getFavoriteCarsByUserId(int userId) throws SQLException {
-        String sql = "SELECT * FROM Favorites WHERE user_id=?";
+        String sql = """
+                    SELECT c.*
+                    FROM Favorites f
+                    JOIN Cars c ON f.car_id = c.car_id
+                    WHERE f.user_id = ?
+                """;
         List<Car> favoriteCars = new ArrayList<>();
 
         try {
@@ -25,15 +30,7 @@ public class FavoriteDAO {
 
 
             while (rs.next()) {
-                favoriteCars.add(new Car(
-                        rs.getInt("car_id"),
-                        rs.getInt("model_id"),
-                        rs.getInt("user_id"),
-                        rs.getDouble("price"),
-                        rs.getInt("year"),
-                        rs.getInt("mileage"),
-                        rs.getString("date_posted")
-                ));
+                favoriteCars.add(new Car(rs.getInt("car_id"), rs.getInt("model_id"), rs.getInt("user_id"), rs.getDouble("price"), rs.getInt("year"), rs.getInt("mileage"), rs.getString("date_posted")));
             }
         } catch (SQLException e) {
             e.printStackTrace();
