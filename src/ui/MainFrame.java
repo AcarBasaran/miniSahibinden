@@ -4,12 +4,12 @@ import dao.*;
 import logic.CarFilterLogic;
 import model.Brand;
 import model.Category;
+import model.FuelType;
 import model.Location;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.text.DecimalFormat;
 import java.util.List;
 
 public class MainFrame extends JFrame {
@@ -30,7 +30,7 @@ public class MainFrame extends JFrame {
     private final UserDAO userDAO = new UserDAO();
     private final LocationDAO locationDAO = new LocationDAO();
 
-public MainFrame(int userId) {
+    public MainFrame(int userId) {
         this.userId = userId;
         setTitle("MiniSahibinden");
         setSize(1000, 600);
@@ -48,7 +48,7 @@ public MainFrame(int userId) {
 
         brandBox = new JComboBox<>();
         cityBox = new JComboBox<>();
-        fuelBox = new JComboBox<>(new String[]{"Any", "Diesel", "Petrol", "LPG", "Electric"});
+        fuelBox = new JComboBox<>();
         categoryBox = new JComboBox<>();
         ;
         yearField = new JTextField();
@@ -93,6 +93,7 @@ public MainFrame(int userId) {
         loadBrands();
         loadCities();
         loadCategories();
+        loadFuelTypes();
     }
 
     private void openFavorites() {
@@ -131,6 +132,16 @@ public MainFrame(int userId) {
             List<Category> categories = categoryDAO.getAllCategories();
             categoryBox.addItem("Any");
             for (Category c : categories) categoryBox.addItem(c.getCategoryName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void loadFuelTypes() {
+        try {
+            List<FuelType> fuelTypes = fuelTypeDAO.getAllFuelTypes();
+            fuelBox.addItem("Any");
+            for (FuelType f : fuelTypes) fuelBox.addItem(f.getFuelTypeName());
         } catch (Exception e) {
             e.printStackTrace();
         }

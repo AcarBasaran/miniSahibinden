@@ -6,6 +6,8 @@ import model.FuelType;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FuelTypeDAO {
     public FuelType getFuelTypeById(int fuelTypeId) throws Exception {
@@ -27,5 +29,23 @@ public class FuelTypeDAO {
             ;
         }
         return fuelType;
+    }
+    public List<FuelType> getAllFuelTypes() throws Exception {
+        String sql = """
+                SELECT * FROM FuelTypes
+                """;
+        List<FuelType> fuelTypes = new ArrayList<>();
+        try{
+            Connection conn = DBConnection.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                fuelTypes.add(new FuelType(rs.getInt("fuel_type_id"), rs.getString("fuel_name")));
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        return fuelTypes;
     }
 }
