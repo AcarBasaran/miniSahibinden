@@ -101,8 +101,13 @@ public class MainFrame extends JFrame {
     }
 
     private void initResultTable() {
-        String[] columns = {"ID", "Brand", "Model", "Category", "Fuel", "Year", "Engine", "Price", "City"};
-        tableModel = new DefaultTableModel(columns, 0);
+        String[] columns = {"ID", "Brand", "Model", "Category", "Year", "Price", "City"};
+        tableModel = new DefaultTableModel(columns, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;  // 🔒 disables editing for all cells
+            }
+        };
         resultTable = new JTable(tableModel);
         add(new JScrollPane(resultTable), BorderLayout.SOUTH);
 
