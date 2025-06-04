@@ -62,6 +62,9 @@ public class MainFrame extends JFrame {
         JButton favoriteBtn = new JButton("Favorites");
         favoriteBtn.addActionListener(e -> openFavorites());
 
+        JButton bestSellerBtn = new JButton("Best Sellers");
+        bestSellerBtn.addActionListener(e -> openBestSellers());
+
         filterPanel.add(new JLabel("Brand:"));
         filterPanel.add(brandBox);
         filterPanel.add(new JLabel("Fuel Type:"));
@@ -82,6 +85,7 @@ public class MainFrame extends JFrame {
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 1, 1));
         buttonPanel.add(searchBtn);
         buttonPanel.add(favoriteBtn);
+        buttonPanel.add(bestSellerBtn);
 
         JPanel northPanel = new JPanel(new BorderLayout());
         northPanel.add(filterPanel, BorderLayout.CENTER);
@@ -94,6 +98,10 @@ public class MainFrame extends JFrame {
         loadCities();
         loadCategories();
         loadFuelTypes();
+    }
+
+    private void openBestSellers() {
+        new BestSellersFrame();
     }
 
     private void openFavorites() {

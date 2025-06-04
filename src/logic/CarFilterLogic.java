@@ -103,9 +103,9 @@ public class CarFilterLogic {
                     b.getBrandName(),
                     model.getModelName(),
                     c.getCategoryName(),
-                    f.getFuelTypeName(),
+                    //f.getFuelTypeName(),
                     car.getYear(),
-                    model.getEngineCapacity(),
+                    //model.getEngineCapacity(),
                     df.format(car.getPrice()),
                     loc.getCityName()
             });
