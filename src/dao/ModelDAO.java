@@ -28,6 +28,27 @@ public class ModelDAO {
         }
     }
 
+    public List<Model> getModelsByBrandId(int brandId) throws Exception {
+        String sql = "SELECT * FROM Models WHERE brand_id = ?";
+
+        List<Model> modelsByBrand = new ArrayList<>();
+
+        try {
+            Connection conn = DBConnection.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, brandId);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                modelsByBrand.add(new Model(rs.getInt("model_id"), rs.getInt("brand_id"), rs.getInt("category_id"), rs.getString("model_name"), rs.getInt("fuel_type_id"), rs.getDouble("engine_capacity")));
+
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return modelsByBrand;
+    }
+
     public List<Object[]> getModelStats() throws Exception {
         String sql = """
                 SELECT Models.model_name, COUNT(*) AS favCount
