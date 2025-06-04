@@ -89,24 +89,5 @@ public class CarFilterLogic {
         return rows;
     }
 
-    public List<Object[]> getFuelTypeRows() throws Exception {
-        List<FuelType> fuelTypes = fuelTypeDAO.getFuelTypesByUsage();
-
-        System.out.println(fuelTypes);
-
-        List<Object[]> rows = new ArrayList<>();
-
-
-        for (FuelType ft : fuelTypes) {
-
-
-            rows.add(new Object[]{
-
-                    ft.getFuelTypeName(),
-
-            });
-        }
-        return rows;
-    }
 
 }

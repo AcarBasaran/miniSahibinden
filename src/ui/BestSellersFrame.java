@@ -1,6 +1,6 @@
 package ui;
 
-import logic.CarFilterLogic;
+import dao.FuelTypeDAO;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -10,8 +10,10 @@ import java.util.List;
 public class BestSellersFrame extends JFrame {
     private JTable table;
     private DefaultTableModel tableModel;
+    private FuelTypeDAO fuelTypeDAO;
 
     public BestSellersFrame() {
+        this.fuelTypeDAO = new FuelTypeDAO();
         setTitle("Best Sellers");
 
         setSize(800, 600);
@@ -19,20 +21,21 @@ public class BestSellersFrame extends JFrame {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
 
-        setVisible(true);
-
         initTable();
         loadMostUsedFuelType();
+
+        setVisible(true);
+
 
     }
 
     private void initTable() {
         String[] columns = {"Fuel Type", "Usage"};
 
-        DefaultTableModel tableModel = new DefaultTableModel(columns, 0) {
+        tableModel = new DefaultTableModel(columns, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
-                return false;  // 🔒 disables editing for all cells
+                return false;
             }
         };
 
@@ -44,9 +47,7 @@ public class BestSellersFrame extends JFrame {
 
     private void loadMostUsedFuelType() {
         try {
-            CarFilterLogic logic = new CarFilterLogic();
-
-            List<Object[]> rows = logic.getFuelTypeRows();
+            List<Object[]> rows = fuelTypeDAO.getFuelTypesUsageStats();
 
             tableModel.setRowCount(0);
             for (Object row : rows) {
