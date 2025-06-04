@@ -1,6 +1,9 @@
 package ui;
 
+import dao.BrandDAO;
+import dao.CategoryDAO;
 import dao.FuelTypeDAO;
+import dao.ModelDAO;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -8,55 +11,44 @@ import java.awt.*;
 import java.util.List;
 
 public class BestSellersFrame extends JFrame {
-    private JTable table;
-    private DefaultTableModel tableModel;
-    private FuelTypeDAO fuelTypeDAO;
 
-    public BestSellersFrame() {
-        this.fuelTypeDAO = new FuelTypeDAO();
+    private final FuelTypeDAO fuelTypeDAO = new FuelTypeDAO();
+    private final CategoryDAO categoryDAO = new CategoryDAO();
+    private final BrandDAO brandDAO = new BrandDAO();
+    private final ModelDAO modelDAO = new ModelDAO();
+
+    public BestSellersFrame() throws Exception {
         setTitle("Best Sellers");
-
         setSize(800, 600);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
+        JTabbedPane tabs = new JTabbedPane();
 
-        initTable();
-        loadMostUsedFuelType();
+        tabs.addTab("Fuel Types", createTablePanel(fuelTypeDAO.getFuelTypesUsageStats(), new String[]{"Fuel Type", "Usage"}));
+        tabs.addTab("Categories", createTablePanel(categoryDAO.getCategoryUsageStats(), new String[]{"Category", "Usage"}));
+        tabs.add("Brands", createTablePanel(brandDAO.getBrandStats(), new String[]{"Brand", "Average Price"}));
+        tabs.add("Models", createTablePanel(modelDAO.getModelStats(), new String[]{"Model", "Like Count"}));
+        // tabs.addTab("Models", createTablePanel(...));
 
+        add(tabs);
         setVisible(true);
-
-
     }
 
-    private void initTable() {
-        String[] columns = {"Fuel Type", "Usage"};
-
-        tableModel = new DefaultTableModel(columns, 0) {
+    private JPanel createTablePanel(List<Object[]> data, String[] columns) {
+        DefaultTableModel model = new DefaultTableModel(columns, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
         };
+        for (Object[] row : data) model.addRow(row);
 
-        table = new JTable(tableModel);
+        JTable table = new JTable(model);
+        JScrollPane scrollPane = new JScrollPane(table);
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.add(scrollPane, BorderLayout.CENTER);
 
-        add(new JScrollPane(table), BorderLayout.CENTER);
-
+        return panel;
     }
-
-    private void loadMostUsedFuelType() {
-        try {
-            List<Object[]> rows = fuelTypeDAO.getFuelTypesUsageStats();
-
-            tableModel.setRowCount(0);
-            for (Object row : rows) {
-                tableModel.addRow((Object[]) row);
-
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
 }

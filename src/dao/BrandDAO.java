@@ -49,4 +49,27 @@ public class BrandDAO {
         } return brands;
 
     }
+    public List<Object[]> getBrandStats() throws Exception {
+        String sql = """
+                SELECT Brands.brand_name, AVG(Cars.price) AS average_price
+                FROM Cars JOIN Models ON Cars.model_id = Models.model_id
+                JOIN Brands ON Models.brand_id = Brands.brand_id
+                GROUP BY Brands.brand_name
+                ORDER BY average_price DESC
+                """;
+        List<Object[]> result = new ArrayList<>();
+        try {
+            Connection conn = DBConnection.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                String brandName = rs.getString("brand_name");
+                int averagePrice = rs.getInt("average_price");
+                result.add(new Object[]{brandName, averagePrice});
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
 }
