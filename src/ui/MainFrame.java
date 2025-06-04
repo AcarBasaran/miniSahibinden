@@ -71,6 +71,9 @@ public class MainFrame extends JFrame {
             }
         });
 
+        JButton sellCarBtn = new JButton("Sell Car");
+        sellCarBtn.addActionListener(e -> openSell());
+
         filterPanel.add(new JLabel("Brand:"));
         filterPanel.add(brandBox);
         filterPanel.add(new JLabel("Fuel Type:"));
@@ -92,6 +95,7 @@ public class MainFrame extends JFrame {
         buttonPanel.add(searchBtn);
         buttonPanel.add(favoriteBtn);
         buttonPanel.add(bestSellerBtn);
+        buttonPanel.add(sellCarBtn);
 
         JPanel northPanel = new JPanel(new BorderLayout());
         northPanel.add(filterPanel, BorderLayout.CENTER);
@@ -112,6 +116,10 @@ public class MainFrame extends JFrame {
 
     private void openFavorites() {
         new FavoritesFrame(userId);
+    }
+
+    private void openSell() {
+        new SellCarFrame(userId);
     }
 
     private void initResultTable() {

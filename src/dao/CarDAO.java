@@ -38,5 +38,9 @@ public class CarDAO {
         }
         return car;
     }
+
+    public void addCar(Car car) {
+
+    }
 }
 

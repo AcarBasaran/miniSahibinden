@@ -1,9 +1,6 @@
 package ui;
 
-import dao.BrandDAO;
-import dao.CategoryDAO;
-import dao.FuelTypeDAO;
-import dao.ModelDAO;
+import dao.*;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -16,6 +13,7 @@ public class BestSellersFrame extends JFrame {
     private final CategoryDAO categoryDAO = new CategoryDAO();
     private final BrandDAO brandDAO = new BrandDAO();
     private final ModelDAO modelDAO = new ModelDAO();
+    private final LocationDAO locationDAO = new LocationDAO();
 
     public BestSellersFrame() throws Exception {
         setTitle("Best Sellers");
@@ -29,8 +27,7 @@ public class BestSellersFrame extends JFrame {
         tabs.addTab("Categories", createTablePanel(categoryDAO.getCategoryUsageStats(), new String[]{"Category", "Usage"}));
         tabs.add("Brands", createTablePanel(brandDAO.getBrandStats(), new String[]{"Brand", "Average Price"}));
         tabs.add("Models", createTablePanel(modelDAO.getModelStats(), new String[]{"Model", "Like Count"}));
-        // tabs.addTab("Models", createTablePanel(...));
-
+        tabs.add("Locations", createTablePanel(locationDAO.getLocationStats(), new String[]{"Location", "Car Count"}));
         add(tabs);
         setVisible(true);
     }
