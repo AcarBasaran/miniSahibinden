@@ -40,7 +40,27 @@ public class CarDAO {
     }
 
     public void addCar(Car car) {
+        String sql = """
+                INSERT INTO Cars
+                (model_id, user_id, price, year, mileage, date_posted)
+                VALUES (?,?,?,?,?,?)
+                """;
+        try {
+            Connection conn = DBConnection.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, car.getModelId());
+            stmt.setInt(2, car.getUserId());
+            stmt.setDouble(3, car.getPrice());
+            stmt.setInt(4, car.getYear());
+            stmt.setInt(5, car.getMileage());
+            stmt.setString(6, car.getDatePosted());
 
+            System.out.println("Car added" + car.toString());
+            stmt.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
 

@@ -53,7 +53,7 @@ public class SellCarFrame extends JFrame {
 
         JButton submitBtn = new JButton("Sell");
         submitBtn.addActionListener(e -> submitCar());
-        add(new JLabel()); // Empty cell
+        add(new JLabel());
         add(submitBtn);
 
         loadBrands();
