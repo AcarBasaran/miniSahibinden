@@ -30,47 +30,47 @@ public class FuelTypeDAO {
         }
         return fuelType;
     }
+
     public List<FuelType> getAllFuelTypes() throws Exception {
         String sql = """
                 SELECT * FROM FuelTypes
                 """;
         List<FuelType> fuelTypes = new ArrayList<>();
-        try{
+        try {
             Connection conn = DBConnection.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 fuelTypes.add(new FuelType(rs.getInt("fuel_type_id"), rs.getString("fuel_name")));
             }
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return fuelTypes;
     }
 
-    public List<FuelType> getAllFuelTypesByUsage() throws Exception {
+    public List<Object[]> getFuelTypesUsageStats() throws Exception {
         String sql = """
-                SELECT FuelType.fuel_type_id,
-                FROM Cars
-                GROUP BY FuelType.fuel_type_id
-                ORDER BY COUNT(*) DESC
+                SELECT FuelTypes.fuel_name, COUNT(*) AS usage_count
+                FROM Cars JOIN Models ON Cars.model_id = Models.model_id JOIN FuelTypes ON Models.fuel_type_id = FuelTypes.fuel_type_id
+                GROUP BY FuelTypes.fuel_name
+                ORDER BY usage_count DESC
                 """;
-        List<FuelType> mostUsedFuelTypes = new ArrayList<>();
-        try{
+        List<Object[]> mostUsedFuelTypes = new ArrayList<>();
+        try {
             Connection conn = DBConnection.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                mostUsedFuelTypes.add(new FuelType(rs.getInt("fuel_type_id"), rs.getString("fuel_name")));
+                String fuelName = rs.getString("fuel_name");
+                int usageCount = rs.getInt("usage_count");
+                mostUsedFuelTypes.add(new Object[]{fuelName, usageCount});
             }
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return mostUsedFuelTypes;
     }
-
 
 
 }
