@@ -48,4 +48,29 @@ public class FuelTypeDAO {
         }
         return fuelTypes;
     }
+
+    public List<FuelType> getAllFuelTypesByUsage() throws Exception {
+        String sql = """
+                SELECT FuelType.fuel_type_id,
+                FROM Cars
+                GROUP BY FuelType.fuel_type_id
+                ORDER BY COUNT(*) DESC
+                """;
+        List<FuelType> mostUsedFuelTypes = new ArrayList<>();
+        try{
+            Connection conn = DBConnection.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                mostUsedFuelTypes.add(new FuelType(rs.getInt("fuel_type_id"), rs.getString("fuel_name")));
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        return mostUsedFuelTypes;
+    }
+
+
+
 }

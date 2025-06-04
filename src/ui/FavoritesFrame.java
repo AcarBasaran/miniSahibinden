@@ -35,7 +35,7 @@ public class FavoritesFrame extends JFrame {
 
 
     private void initTable() {
-        String[] columns = {"ID", "Brand", "Model", "Category", "Fuel", "Year", "Engine", "Price", "City"};
+        String[] columns = {"ID", "Brand", "Model", "Category",  "Year",  "Price", "City"};
 
         tableModel = new DefaultTableModel(columns, 0) {
             @Override
