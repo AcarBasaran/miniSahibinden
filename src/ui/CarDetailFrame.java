@@ -5,8 +5,12 @@ import model.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.text.DecimalFormat;
 
 public class CarDetailFrame extends JFrame {
+
+    DecimalFormat df = new DecimalFormat("#,###");
+
 
     private final CarDAO carDAO = new CarDAO();
     private final ModelDAO modelDAO = new ModelDAO();
@@ -39,7 +43,7 @@ public class CarDetailFrame extends JFrame {
             add(new JLabel("Year: " + car.getYear()));
             add(new JLabel("Engine Size: " + model.getEngineCapacity()));
             add(new JLabel("Mileage: " + car.getMileage()));
-            add(new JLabel("Price: " + car.getPrice()));
+            add(new JLabel("Price: " + df.format(car.getPrice())));
             add(new JLabel("City: " + city.getCityName()));
             add(new JLabel("Posted by: " + owner.getEmail()));
             add(new JLabel("Owner contact: " + owner.getPhoneNumber()));
