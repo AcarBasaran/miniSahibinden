@@ -71,6 +71,9 @@ public class MainFrame extends JFrame {
             }
         });
 
+        JButton listingsBtn = new JButton("My Listings");
+        listingsBtn.addActionListener(e -> openMyListings());
+
         JButton sellCarBtn = new JButton("Sell Car");
         sellCarBtn.addActionListener(e -> openSell());
 
@@ -96,6 +99,8 @@ public class MainFrame extends JFrame {
         buttonPanel.add(favoriteBtn);
         buttonPanel.add(bestSellerBtn);
         buttonPanel.add(sellCarBtn);
+        buttonPanel.add(listingsBtn);
+
 
         JPanel northPanel = new JPanel(new BorderLayout());
         northPanel.add(filterPanel, BorderLayout.CENTER);
@@ -108,6 +113,10 @@ public class MainFrame extends JFrame {
         loadCities();
         loadCategories();
         loadFuelTypes();
+    }
+
+    private void openMyListings() {
+        new MyListingsFrame(userId);
     }
 
     private void openBestSellers() throws Exception {
