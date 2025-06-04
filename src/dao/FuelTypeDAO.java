@@ -49,7 +49,7 @@ public class FuelTypeDAO {
         return fuelTypes;
     }
 
-    public List<FuelType> getAllFuelTypesByUsage() throws Exception {
+    public List<FuelType> getFuelTypesByUsage() throws Exception {
         String sql = """
                 SELECT FuelType.fuel_type_id,
                 FROM Cars
