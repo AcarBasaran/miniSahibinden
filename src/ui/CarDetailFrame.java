@@ -45,7 +45,7 @@ public class CarDetailFrame extends JFrame {
             add(new JLabel("Mileage: " + car.getMileage()));
             add(new JLabel("Price: " + df.format(car.getPrice())));
             add(new JLabel("City: " + city.getCityName()));
-            add(new JLabel("Posted by: " + owner.getEmail()));
+            add(new JLabel("Posted by: " + owner.getUserName()));
             add(new JLabel("Owner contact: " + owner.getPhoneNumber()));
 
             JButton favBtn = new JButton("Add to Favorites");

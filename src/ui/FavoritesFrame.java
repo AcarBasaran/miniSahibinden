@@ -37,7 +37,12 @@ public class FavoritesFrame extends JFrame {
     private void initTable() {
         String[] columns = {"ID", "Brand", "Model", "Category", "Fuel", "Year", "Engine", "Price", "City"};
 
-        tableModel = new DefaultTableModel(columns, 0);
+        tableModel = new DefaultTableModel(columns, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;  // 🔒 disables editing for all cells
+            }
+        };
 
         table = new JTable(tableModel);
 
