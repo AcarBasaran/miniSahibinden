@@ -48,6 +48,9 @@ public class FavoriteDAO {
 
             stmt.setInt(1, user_id);
             stmt.setInt(2, car_id);
+
+            stmt.executeUpdate();
+
         } catch (Exception e) {
             e.printStackTrace();
         }

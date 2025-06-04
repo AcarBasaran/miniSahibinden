@@ -85,12 +85,12 @@ public class CarFilterLogic {
     public List<Object[]> getFavoriteTableRows(int userId) throws Exception {
         List<Car> cars = favoriteDAO.getFavoriteCarsByUserId(userId);
 
-        System.out.println("Favorites for user " + userId + ": " + cars.size());
+        System.out.println("Favorites for user " + userId + ": " + "size:" + cars.size() + "   first car:" + cars.get(0).getCarId() + "  second car:" + cars.get(1).getCarId());
 
         List<Object[]> rows = new ArrayList<>();
 
 
-        for(Car car : cars) {
+        for (Car car : cars) {
             Model model = modelDAO.getModelById(car.getModelId());
             Brand b = brandDAO.getBrandById(model.getBrandId());
             Category c = categoryDAO.getCategoryById(model.getCategoryId());
