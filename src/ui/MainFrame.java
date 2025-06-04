@@ -62,8 +62,14 @@ public class MainFrame extends JFrame {
         JButton favoriteBtn = new JButton("Favorites");
         favoriteBtn.addActionListener(e -> openFavorites());
 
-        JButton bestSellerBtn = new JButton("Best Sellers");
-        bestSellerBtn.addActionListener(e -> openBestSellers());
+        JButton bestSellerBtn = new JButton("Statistics");
+        bestSellerBtn.addActionListener(e -> {
+            try {
+                openBestSellers();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        });
 
         filterPanel.add(new JLabel("Brand:"));
         filterPanel.add(brandBox);
@@ -100,7 +106,7 @@ public class MainFrame extends JFrame {
         loadFuelTypes();
     }
 
-    private void openBestSellers() {
+    private void openBestSellers() throws Exception {
         new BestSellersFrame();
     }
 
@@ -113,7 +119,7 @@ public class MainFrame extends JFrame {
         tableModel = new DefaultTableModel(columns, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
-                return false;  // 🔒 disables editing for all cells
+                return false;
             }
         };
         resultTable = new JTable(tableModel);
