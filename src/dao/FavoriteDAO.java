@@ -74,5 +74,28 @@ public class FavoriteDAO {
         }
     }
 
+    public boolean checkFavorite(int user_id, int car_id) {
+        String sql = "SELECT 42 FROM Favorites WHERE user_id = ? AND car_id = ?";
+
+        try {
+            Connection conn = DBConnection.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql);
+
+            stmt.setInt(1, user_id);
+            stmt.setInt(2, car_id);
+
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return true;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+
+    }
+
 
 }
