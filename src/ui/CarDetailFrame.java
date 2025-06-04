@@ -59,6 +59,17 @@ public class CarDetailFrame extends JFrame {
             });
             add(favBtn);
 
+            JButton deleteBtn = new JButton("Delete from Favorites");
+            deleteBtn.addActionListener(e -> {
+                try {
+                    favoriteDAO.deleteFavorite(userId, carId);
+                    JOptionPane.showMessageDialog(this, "Deleted from favorites!");
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(this, "Failed to delete from favorites!");
+                }
+            });
+            add(deleteBtn);
+
         } catch (Exception e) {
             e.printStackTrace();
             add(new JLabel("Failed to load car details."));

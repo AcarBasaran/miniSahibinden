@@ -57,5 +57,22 @@ public class FavoriteDAO {
 
     }
 
+    public void deleteFavorite(int user_id, int car_id) {
+        String sql = """
+                DELETE FROM Favorites WHERE user_id = ? AND car_id = ?
+                """;
+        try {
+            Connection conn = DBConnection.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, user_id);
+            stmt.setInt(2, car_id);
+
+            stmt.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }
