@@ -48,6 +48,16 @@ public class FavoritesFrame extends JFrame {
 
         add(new JScrollPane(table), BorderLayout.CENTER);
 
+        table.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                if (evt.getClickCount() == 2 && table.getSelectedRow() != -1) {
+                    int row = table.getSelectedRow();
+                    int carId = (int) tableModel.getValueAt(row, 0);
+                    new CarDetailFrame(userId, carId);
+                }
+            }
+        });
+
 
     }
 
