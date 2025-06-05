@@ -3,6 +3,7 @@ package ui;
 import dao.LocationDAO;
 import dao.UserDAO;
 import model.Location;
+import model.User;
 
 import javax.swing.*;
 import java.awt.*;
@@ -81,6 +82,23 @@ public class RegisterPanel extends JPanel {
     }
 
     private void registerUser() {
+        try {
+            Integer selectedCityIndex = cityBox.getSelectedIndex();
 
+            String name = nameField.getText().trim();
+            String email = emailField.getText().trim();
+            Long phone = Long.valueOf(phoneField.getText().trim());
+            String password = passwordField.getText().trim();
+            Integer locationId = locationList.get(selectedCityIndex).getLocationId();
+
+            User user = new User(0,name,email,password, phone, locationId);
+            userDAO.addUser(user);
+
+            JOptionPane.showMessageDialog(this, "Registration Successful");
+            parentFrame.showPanel("Login");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

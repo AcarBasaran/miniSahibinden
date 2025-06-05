@@ -35,6 +35,7 @@ public class LoginPanel extends JPanel {
         panel.add(passwordField);
 
         JButton loginBtn = new JButton("Login");
+
         loginBtn.addActionListener(e -> login());
 
         JButton registerBtn = new JButton("Register");

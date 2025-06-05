@@ -29,6 +29,7 @@ public class AuthFrame extends JFrame {
         add(cardPanel);
         setVisible(true);
 
+
     }
 
     public void showPanel(String name) {
