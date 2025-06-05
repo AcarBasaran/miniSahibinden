@@ -39,8 +39,14 @@ public class LoginFrame extends JFrame {
         JButton loginBtn = new JButton("Login");
         loginBtn.addActionListener(e -> login());
 
+        JButton registerBtn = new JButton("Register");
+        registerBtn.addActionListener(e -> register());
+
+        JPanel buttonPanel = new JPanel(new GridLayout(1, 2, 10, 1));
         add(panel, BorderLayout.CENTER);
-        add(loginBtn, BorderLayout.SOUTH);
+        buttonPanel.add(loginBtn);
+        buttonPanel.add(registerBtn);
+        add(buttonPanel, BorderLayout.SOUTH);
     }
 
     private void login() {
@@ -59,5 +65,10 @@ public class LoginFrame extends JFrame {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Login failed.");
         }
+    }
+
+    private void register() {
+        new RegisterFrame();
+        LoginFrame.this.dispose();
     }
 }

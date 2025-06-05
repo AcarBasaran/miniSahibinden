@@ -52,7 +52,9 @@ public class FuelTypeDAO {
     public List<Object[]> getFuelTypesUsageStats() throws Exception {
         String sql = """
                 SELECT FuelTypes.fuel_name, COUNT(*) AS usage_count
-                FROM Cars JOIN Models ON Cars.model_id = Models.model_id JOIN FuelTypes ON Models.fuel_type_id = FuelTypes.fuel_type_id
+                FROM Cars 
+                JOIN Models ON Cars.model_id = Models.model_id 
+                JOIN FuelTypes ON Models.fuel_type_id = FuelTypes.fuel_type_id
                 GROUP BY FuelTypes.fuel_name
                 ORDER BY usage_count DESC
                 """;

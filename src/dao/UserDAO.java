@@ -69,4 +69,8 @@ public class UserDAO {
         }
         return user;
     }
+
+    public void addUser(User user) throws Exception {
+        String sql = "INSERT INTO Users VALUES(?,?,?,?,?,?)";
+    }
 }

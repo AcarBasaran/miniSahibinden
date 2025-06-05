@@ -16,7 +16,7 @@ public class BestSellersFrame extends JFrame {
     private final LocationDAO locationDAO = new LocationDAO();
 
     public BestSellersFrame() throws Exception {
-        setTitle("Best Sellers");
+        setTitle("Statistics");
         setSize(800, 600);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
