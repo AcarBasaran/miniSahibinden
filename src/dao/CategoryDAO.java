@@ -51,7 +51,7 @@ public class CategoryDAO {
         return categories;
     }
 
-    public List<Object[]> getCategoryUsageStats() throws Exception {
+    public List<Object[]> getCategoryUsageStats()  {
         String sql = """
                 SELECT Categories.name, COUNT(*) AS usage_count
                 FROM Cars JOIN Models ON Cars.model_id = Models.model_id JOIN Categories ON Models.category_id = Categories.category_id

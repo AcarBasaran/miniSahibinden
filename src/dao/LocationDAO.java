@@ -58,7 +58,7 @@ public class LocationDAO {
 
     }
 
-    public List<Object[]> getLocationStats() throws SQLException {
+    public List<Object[]> getLocationStats()  {
         String sql = """
                 SELECT Locations.city, COUNT(*) AS numOfCarPerCity
                 FROM Locations 
