@@ -49,7 +49,7 @@ public class ModelDAO {
         return modelsByBrand;
     }
 
-    public List<Object[]> getModelStats() throws Exception {
+    public List<Object[]> getModelStats() {
         String sql = """
                 SELECT Models.model_name, COUNT(*) AS favCount
                 FROM Favorites 

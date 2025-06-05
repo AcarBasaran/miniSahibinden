@@ -49,7 +49,7 @@ public class BrandDAO {
         } return brands;
 
     }
-    public List<Object[]> getBrandStats() throws Exception {
+    public List<Object[]> getBrandStats()  {
         String sql = """
                 SELECT Brands.brand_name, AVG(Cars.price) AS average_price
                 FROM Cars JOIN Models ON Cars.model_id = Models.model_id

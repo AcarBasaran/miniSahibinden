@@ -7,7 +7,7 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.List;
 
-public class BestSellersFrame extends JFrame {
+public class StatisticsPanel extends JPanel {
 
     private final FuelTypeDAO fuelTypeDAO = new FuelTypeDAO();
     private final CategoryDAO categoryDAO = new CategoryDAO();
@@ -15,11 +15,9 @@ public class BestSellersFrame extends JFrame {
     private final ModelDAO modelDAO = new ModelDAO();
     private final LocationDAO locationDAO = new LocationDAO();
 
-    public BestSellersFrame() throws Exception {
-        setTitle("Statistics");
-        setSize(800, 600);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+    public StatisticsPanel()  {
+        setLayout(new BorderLayout());
+
 
         JTabbedPane tabs = new JTabbedPane();
 
