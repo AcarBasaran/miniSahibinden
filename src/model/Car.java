@@ -19,56 +19,34 @@ public class Car {
         return carId;
     }
 
-    public void setCarId(int carId) {
-        this.carId = carId;
-    }
 
     public int getModelId() {
         return modelId;
     }
 
-    public void setModelId(int modelId) {
-        this.modelId = modelId;
-    }
 
     public int getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
 
     public int getYear() {
         return year;
     }
 
-    public void setYear(int year) {
-        this.year = year;
-    }
 
     public int getMileage() {
         return mileage;
     }
 
-    public void setMileage(int mileage) {
-        this.mileage = mileage;
-    }
 
     public double getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
-    }
 
     public String getDatePosted() {
         return datePosted;
-    }
-
-    public void setDatePosted(String datePosted) {
-        this.datePosted = datePosted;
     }
 
 
