@@ -6,21 +6,19 @@ import model.User;
 import javax.swing.*;
 import java.awt.*;
 
-public class LoginFrame extends JFrame {
+public class LoginPanel extends JPanel {
 
     private final UserDAO userDAO = new UserDAO();
+    private final AuthFrame parentFrame;
     private JTextField emailField;
     private JPasswordField passwordField;
 
-    public LoginFrame() {
-        setTitle("Login - MiniSahibinden");
-        setSize(300, 200);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
+    public LoginPanel(AuthFrame parentFrame) {
+        this.parentFrame = parentFrame;
+
         setLayout(new BorderLayout());
 
         initUI();
-        setVisible(true);
     }
 
     private void initUI() {
@@ -40,13 +38,17 @@ public class LoginFrame extends JFrame {
         loginBtn.addActionListener(e -> login());
 
         JButton registerBtn = new JButton("Register");
-        registerBtn.addActionListener(e -> register());
+        registerBtn.addActionListener(e -> parentFrame.showPanel("Register"));
 
         JPanel buttonPanel = new JPanel(new GridLayout(1, 2, 10, 1));
-        add(panel, BorderLayout.CENTER);
+
+
         buttonPanel.add(loginBtn);
         buttonPanel.add(registerBtn);
+
+        add(panel, BorderLayout.CENTER);
         add(buttonPanel, BorderLayout.SOUTH);
+
     }
 
     private void login() {
@@ -56,7 +58,8 @@ public class LoginFrame extends JFrame {
         try {
             User user = userDAO.getUserByEmailAndPassword(email, password);
             if (user != null) {
-                dispose();
+                JOptionPane.showMessageDialog(parentFrame, "You have successfully logged in!");
+                parentFrame.dispose();
                 new MainFrame(user.getUserId());
             } else {
                 JOptionPane.showMessageDialog(this, "Invalid email or password.");
@@ -67,8 +70,5 @@ public class LoginFrame extends JFrame {
         }
     }
 
-    private void register() {
-        new RegisterFrame();
-        LoginFrame.this.dispose();
-    }
+
 }
