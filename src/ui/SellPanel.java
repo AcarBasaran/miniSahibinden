@@ -11,7 +11,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
-public class SellCarFrame extends JFrame {
+public class SellPanel extends JPanel {
     private final int userId;
     private final BrandDAO brandDAO = new BrandDAO();
     private final ModelDAO modelDAO = new ModelDAO();
@@ -24,13 +24,16 @@ public class SellCarFrame extends JFrame {
     private List<Brand> brandList;
     private List<Model> currentModelList;
 
-    public SellCarFrame(int userId) {
+    public SellPanel(int userId) {
         this.userId = userId;
-        setTitle("Sell a Car");
-        setSize(400, 300);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setLayout(new GridLayout(6, 2, 10, 10));
+
+        initSellPanel();
+        setVisible(true);
+    }
+
+    private void initSellPanel() {
+        JPanel sellPanel = new JPanel(new GridLayout(6, 2));
+
 
         brandBox = new JComboBox<>();
         modelBox = new JComboBox<>();
@@ -38,27 +41,31 @@ public class SellCarFrame extends JFrame {
         yearField = new JTextField();
         priceField = new JTextField();
 
-        add(new JLabel("Brand:"));
-        add(brandBox);
-        add(new JLabel("Model:"));
-        add(modelBox);
-        add(new JLabel("Mileage:"));
-        add(mileageField);
-        add(new JLabel("Year:"));
-        add(yearField);
-        add(new JLabel("Price:"));
-        add(priceField);
+
+        sellPanel.add(new JLabel("Brand:"));
+        sellPanel.add(brandBox);
+        sellPanel.add(new JLabel("Model:"));
+        sellPanel.add(modelBox);
+        sellPanel.add(new JLabel("Mileage:"));
+        sellPanel.add(mileageField);
+        sellPanel.add(new JLabel("Year:"));
+        sellPanel.add(yearField);
+        sellPanel.add(new JLabel("Price:"));
+        sellPanel.add(priceField);
+
+        loadBrands();
+        brandBox.addActionListener(e -> loadModelsForSelectedBrand());
+
 
         JButton submitBtn = new JButton("Sell");
         submitBtn.addActionListener(e -> submitCar());
-        add(new JLabel());
-        add(submitBtn);
 
-        loadBrands();
+        sellPanel.add(new JLabel(""));
+        sellPanel.add(submitBtn);
 
-        brandBox.addActionListener(e -> loadModelsForSelectedBrand());
+        add(sellPanel);
 
-        setVisible(true);
+
     }
 
     private void loadBrands() {
@@ -104,7 +111,6 @@ public class SellCarFrame extends JFrame {
 
             carDAO.addCar(new Car(0, modelId, userId, price, year, mileage, java.time.LocalDate.now().toString()));
             JOptionPane.showMessageDialog(this, "Car listed successfully!");
-            dispose();
 
         } catch (Exception e) {
             e.printStackTrace();

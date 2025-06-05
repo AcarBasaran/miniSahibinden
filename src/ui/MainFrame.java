@@ -27,7 +27,7 @@ public class MainFrame extends JFrame {
 
         mainPanel.add(new SearchPanel(userId), "search");
         mainPanel.add(new StatisticsPanel(), "stats");
-       // mainPanel.add(new SellPanel(userId), "sell");
+       mainPanel.add(new SellPanel(userId), "sell");
        // mainPanel.add(new FavoritesPanel(userId), "favorites");
        // mainPanel.add(new ListingsPanel(userId), "mylistings");
 
