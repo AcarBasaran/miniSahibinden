@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FavoriteDAO {
-    public List<Car> getFavoriteCarsByUserId(int userId) throws SQLException {
+    public List<Car> getFavoriteCarsByUserId(int userId){
         String sql = """
                     SELECT c.*
                     FROM Favorites f
@@ -50,6 +50,7 @@ public class FavoriteDAO {
             stmt.setInt(2, car_id);
 
             stmt.executeUpdate();
+
 
         } catch (Exception e) {
             e.printStackTrace();

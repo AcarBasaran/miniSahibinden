@@ -1,16 +1,7 @@
 package ui;
 
-import dao.*;
-import logic.CarFilterLogic;
-import model.Brand;
-import model.Category;
-import model.FuelType;
-import model.Location;
-
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.util.List;
 
 public class MainFrame extends JFrame {
     private JPanel mainPanel;
@@ -27,13 +18,13 @@ public class MainFrame extends JFrame {
 
         mainPanel.add(new SearchPanel(userId), "search");
         mainPanel.add(new StatisticsPanel(), "stats");
-       // mainPanel.add(new SellPanel(userId), "sell");
-       // mainPanel.add(new FavoritesPanel(userId), "favorites");
-       // mainPanel.add(new ListingsPanel(userId), "mylistings");
+        mainPanel.add(new SellPanel(userId), "sell");
+        mainPanel.add(new FavoritesPanel(userId), "favorites");
+        mainPanel.add(new ListingsPanel(userId), "mylistings");
 
-        JPanel navPanel = new JPanel(new GridLayout(1,5));
+        JPanel navPanel = new JPanel(new GridLayout(1, 5));
 
-        navPanel.add(createButton("Search","search"));
+        navPanel.add(createButton("Search", "search"));
         navPanel.add(createButton("Statistics", "stats"));
         navPanel.add(createButton("Sell", "sell"));
         navPanel.add(createButton("Favorites", "favorites"));
@@ -41,7 +32,6 @@ public class MainFrame extends JFrame {
 
         add(navPanel, BorderLayout.NORTH);
         add(mainPanel, BorderLayout.CENTER);
-
 
 
         setVisible(true);
@@ -52,11 +42,6 @@ public class MainFrame extends JFrame {
         button.addActionListener(e -> cardLayout.show(mainPanel, panelKey));
         return button;
     }
-
-
-
-
-
 
 
 }

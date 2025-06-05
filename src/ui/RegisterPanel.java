@@ -91,7 +91,7 @@ public class RegisterPanel extends JPanel {
             String password = passwordField.getText().trim();
             Integer locationId = locationList.get(selectedCityIndex).getLocationId();
 
-            User user = new User(0,name,email,password, phone, locationId);
+            User user = new User(0, name, email, password, phone, locationId);
             userDAO.addUser(user);
 
             JOptionPane.showMessageDialog(this, "Registration Successful");

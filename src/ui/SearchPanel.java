@@ -70,7 +70,7 @@ public class SearchPanel extends JPanel {
         filterPanel.add(engineSizeField);
 
         JPanel northPanel = new JPanel(new BorderLayout());
-        northPanel.add(filterPanel, BorderLayout.CENTER);
+        northPanel.add(filterPanel, BorderLayout.NORTH);
         northPanel.add(searchBtn, BorderLayout.SOUTH);
 
         add(northPanel, BorderLayout.NORTH);
@@ -83,7 +83,7 @@ public class SearchPanel extends JPanel {
 
 
     private void initResultTable() {
-        String[] columns = {"ID", "Brand", "Model", "Category", "Year", "Price", "City"};
+        String[] columns = {"ID", "Brand", "Model", "Category", "Year", "Milage", "Price", "City"};
         tableModel = new DefaultTableModel(columns, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -91,7 +91,7 @@ public class SearchPanel extends JPanel {
             }
         };
         resultTable = new JTable(tableModel);
-        add(new JScrollPane(resultTable), BorderLayout.SOUTH);
+        add(new JScrollPane(resultTable), BorderLayout.CENTER);
 
         resultTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

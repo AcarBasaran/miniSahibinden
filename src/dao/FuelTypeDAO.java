@@ -49,7 +49,7 @@ public class FuelTypeDAO {
         return fuelTypes;
     }
 
-    public List<Object[]> getFuelTypesUsageStats()  {
+    public List<Object[]> getFuelTypesUsageStats() {
         String sql = """
                 SELECT FuelTypes.fuel_name, COUNT(*) AS usage_count
                 FROM Cars 

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryDAO {
-    public Category getCategoryById(int categoryId) throws Exception {
+    public Category getCategoryById(int categoryId) {
         String sql = "SELECT * FROM Categories WHERE category_id=?";
         Category category = null;
         try {
@@ -27,12 +27,12 @@ public class CategoryDAO {
 
         } catch (Exception e) {
             e.printStackTrace();
-            ;
+
         }
         return category;
     }
 
-    public List<Category> getAllCategories() throws SQLException {
+    public List<Category> getAllCategories() {
         String sql = "SELECT * FROM Categories";
         List<Category> categories = new ArrayList<>();
 
@@ -51,7 +51,7 @@ public class CategoryDAO {
         return categories;
     }
 
-    public List<Object[]> getCategoryUsageStats()  {
+    public List<Object[]> getCategoryUsageStats() {
         String sql = """
                 SELECT Categories.name, COUNT(*) AS usage_count
                 FROM Cars JOIN Models ON Cars.model_id = Models.model_id JOIN Categories ON Models.category_id = Categories.category_id

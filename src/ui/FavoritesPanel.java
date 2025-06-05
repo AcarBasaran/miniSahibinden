@@ -1,28 +1,22 @@
 package ui;
 
-import dao.*;
-import model.*;
-import logic.*;
+import logic.CarFilterLogic;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.sql.SQLException;
 import java.util.List;
 
-public class FavoritesFrame extends JFrame {
+public class FavoritesPanel extends JPanel {
     private final int userId;
     private JTable table;
     private DefaultTableModel tableModel;
 
 
-    public FavoritesFrame(int userId) {
+    public FavoritesPanel(int userId) {
         this.userId = userId;
-        setTitle("My Favorites");
+        setLayout(new BorderLayout());
 
-        setSize(800, 600);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         initTable();
 
@@ -33,14 +27,13 @@ public class FavoritesFrame extends JFrame {
     }
 
 
-
     private void initTable() {
-        String[] columns = {"ID", "Brand", "Model", "Category",  "Year",  "Price", "City"};
+        String[] columns = {"ID", "Brand", "Model", "Category", "Year", "Milage", "Price", "City"};
 
         tableModel = new DefaultTableModel(columns, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
-                return false;  // 🔒 disables editing for all cells
+                return false;
             }
         };
 
@@ -72,8 +65,7 @@ public class FavoritesFrame extends JFrame {
                 tableModel.addRow((Object[]) row);
 
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
