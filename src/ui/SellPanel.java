@@ -25,10 +25,10 @@ public class SellPanel extends JPanel {
     private List<Model> currentModelList;
 
     public SellPanel(int userId) {
+
         this.userId = userId;
 
         initSellPanel();
-        setVisible(true);
     }
 
     private void initSellPanel() {

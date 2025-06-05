@@ -6,12 +6,11 @@ import model.Brand;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class BrandDAO {
-    public Brand getBrandById(int brandId) throws Exception {
+    public Brand getBrandById(int brandId) {
         String sql = "SELECT * FROM Brands WHERE brand_id = ?";
         Brand brand = null;
         try {
@@ -31,7 +30,7 @@ public class BrandDAO {
         return brand;
     }
 
-    public List<Brand> getAllBrands() throws SQLException {
+    public List<Brand> getAllBrands() {
         String sql = "SELECT * FROM Brands";
         List<Brand> brands = new ArrayList<>();
 
@@ -46,10 +45,12 @@ public class BrandDAO {
         } catch (Exception e) {
             e.printStackTrace();
 
-        } return brands;
+        }
+        return brands;
 
     }
-    public List<Object[]> getBrandStats()  {
+
+    public List<Object[]> getBrandStats() {
         String sql = """
                 SELECT Brands.brand_name, AVG(Cars.price) AS average_price
                 FROM Cars JOIN Models ON Cars.model_id = Models.model_id

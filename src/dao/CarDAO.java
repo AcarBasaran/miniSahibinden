@@ -2,7 +2,6 @@ package dao;
 
 import miniSahibinden.DBConnection;
 import model.Car;
-import model.Model;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -21,7 +20,7 @@ public class CarDAO {
         return cars;
     }
 
-    public Car getCarById(int carId) throws SQLException {
+    public Car getCarById(int carId) {
         String sql = "SELECT * FROM Cars WHERE car_id=?";
         Car car = null;
 
@@ -56,14 +55,15 @@ public class CarDAO {
             stmt.setInt(5, car.getMileage());
             stmt.setString(6, car.getDatePosted());
 
-            System.out.println("Car added" + car.toString());
+            System.out.println("Car added" + car.getCarId() + car.getModelId() + car.getUserId() + car.getPrice() + car.getYear() + car.getMileage());
             stmt.executeUpdate();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    public List<Car> getCarsByUserId(int userId) throws Exception {
+
+    public List<Car> getCarsByUserId(int userId) {
         String sql = "SELECT * FROM Cars WHERE user_id = ?";
 
         List<Car> carsByUser = new ArrayList<>();
@@ -82,5 +82,6 @@ public class CarDAO {
             e.printStackTrace();
         }
         return carsByUser;
-    }}
+    }
+}
 

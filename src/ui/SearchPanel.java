@@ -83,7 +83,7 @@ public class SearchPanel extends JPanel {
 
 
     private void initResultTable() {
-        String[] columns = {"ID", "Brand", "Model", "Category", "Year", "Price", "City"};
+        String[] columns = {"ID", "Brand", "Model", "Category", "Year", "Milage", "Price", "City"};
         tableModel = new DefaultTableModel(columns, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {

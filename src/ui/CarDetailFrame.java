@@ -1,7 +1,6 @@
 package ui;
 
 import dao.*;
-import logic.CarFilterLogic;
 import model.*;
 
 import javax.swing.*;
@@ -55,11 +54,11 @@ public class CarDetailFrame extends JFrame {
                 try {
                     favoriteDAO.addFavorite(userId, carId);
                     JOptionPane.showMessageDialog(this, "Added to favorites!");
+
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(this, "Already favorited or failed.");
                 }
             });
-            //add(favBtn);
 
             JButton deleteBtn = new JButton("Delete from Favorites");
             deleteBtn.addActionListener(e -> {
@@ -70,11 +69,10 @@ public class CarDetailFrame extends JFrame {
                     JOptionPane.showMessageDialog(this, "Failed to delete from favorites!");
                 }
             });
-            //add(deleteBtn);
 
-            if(favoriteDAO.checkFavorite(userId, carId)){
+            if (favoriteDAO.checkFavorite(userId, carId)) {
                 add(deleteBtn);
-            }else{
+            } else {
                 add(favBtn);
             }
 

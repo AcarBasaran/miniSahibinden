@@ -55,9 +55,8 @@ public class CarFilterLogic {
             Location loc = locationDAO.getLocationById(user.getLocationId());
 
             rows.add(new Object[]{car.getCarId(), b.getBrandName(), model.getModelName(), c.getCategoryName(),
-                    //f.getFuelTypeName(),
                     car.getYear(),
-                    //model.getEngineCapacity(),
+                    car.getMileage(),
                     df.format(car.getPrice()), loc.getCityName()});
         }
 
@@ -81,9 +80,8 @@ public class CarFilterLogic {
             Location loc = locationDAO.getLocationById(user.getLocationId());
 
             rows.add(new Object[]{car.getCarId(), b.getBrandName(), model.getModelName(), c.getCategoryName(),
-                    //f.getFuelTypeName(),
                     car.getYear(),
-                    //model.getEngineCapacity(),
+                    car.getMileage(),
                     df.format(car.getPrice()), loc.getCityName()});
         }
         return rows;
