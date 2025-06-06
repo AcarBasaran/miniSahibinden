@@ -54,7 +54,9 @@ public class CategoryDAO {
     public List<Object[]> getCategoryUsageStats() {
         String sql = """
                 SELECT Categories.name, COUNT(*) AS usage_count
-                FROM Cars JOIN Models ON Cars.model_id = Models.model_id JOIN Categories ON Models.category_id = Categories.category_id
+                FROM Cars 
+                JOIN Models ON Cars.model_id = Models.model_id 
+                JOIN Categories ON Models.category_id = Categories.category_id
                 GROUP BY Categories.name
                 ORDER BY usage_count DESC
                 """;
