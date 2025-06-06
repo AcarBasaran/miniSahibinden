@@ -28,7 +28,7 @@ public class MainFrame extends JFrame {
         navPanel.add(createButton("Statistics", "stats"));
         navPanel.add(createButton("Sell", "sell"));
         navPanel.add(createButton("Favorites", "favorites"));
-        navPanel.add(createButton("My listings", "mylistings"));
+        navPanel.add(createButton("My Listings", "mylistings"));
 
         add(navPanel, BorderLayout.NORTH);
         add(mainPanel, BorderLayout.CENTER);

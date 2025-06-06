@@ -71,7 +71,11 @@ public class UserDAO {
     }
 
     public void addUser(User user) throws Exception {
-        String sql = "INSERT INTO Users (name, email, password, phone, location_id) VALUES(?,?,?,?,?)";
+        String sql = """
+                INSERT INTO Users 
+                (name, email, password, phone, location_id) 
+                VALUES(?,?,?,?,?)
+                """;
 
         try {
             Connection conn = DBConnection.getConnection();

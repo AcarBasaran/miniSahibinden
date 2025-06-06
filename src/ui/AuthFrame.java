@@ -9,7 +9,7 @@ public class AuthFrame extends JFrame {
     private JPanel cardPanel;
 
     public AuthFrame() {
-        setTitle("MiniSahibinden Auth");
+        setTitle("MiniSahibinden");
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
